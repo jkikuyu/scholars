@@ -1,0 +1,4 @@
+jdoe   Doe, John                               jdoe@xyz.com                            
+       Administrator                           admin@xyz.com                           
+powiti Owiti, Paul                             powiti@atbc.com                         
+pkosgeiKosgei, Peter                           pkosgei@aba.com                         
