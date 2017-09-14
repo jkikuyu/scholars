@@ -1,7 +1,6 @@
 <?php
 	session_start();
 	require_once "classes/classesAutoload.php";
-    //$objMenu->menuInit();
 
 	if (isset($_POST["username"])){	
 		$success= $objLogin->checkValidUser($MYSQL);
@@ -10,9 +9,10 @@
 		if ($success){
 				$objLayout->head();
 				$objLayout->body_open();
+                $objMenu->menuInit();
 
-				$objLayout->admin_container();
-				$objLayout->user_lists();
+				//$objLayout->admin_container();
+				//$objLayout->user_lists();
 			
 			//$objLayout->user_lists();
 			
