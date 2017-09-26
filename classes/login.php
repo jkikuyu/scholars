@@ -84,7 +84,7 @@
 		$user = isset($_POST["username"])?$_POST["username"]:"";
 		$pass = isset($_POST["password"])?$_POST["password"]:"";
 
-		$sql = "select userid, user_name, password,usertype from users where user_name= '". $user. "'";
+		$sql = "select userid, user_name, password,usertype from user where user_name= '". $user. "'";
 
 		$result = $objDB->getResults($sql);
 

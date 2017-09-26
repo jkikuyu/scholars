@@ -45,18 +45,11 @@ Class Menu{
                 }
 
                else{
-               ?>
-               <div class="dropdown">
-    
-                     <button class="dropbtn"> <?php echo $item; ?> </button>
-                        <div class="dropdown-content">
-  
-             
-      <?php  
-                    echo "<a href='tttt '>".$item. "</a>";
-                }
+                     echo "<a href='".$subitems ."'>".$item. "</a>";   
+                    }  
+              }
                         // 'contact' => "contact"
-             }
+             
        ?>
         </div> 
         </div>
@@ -64,7 +57,6 @@ Class Menu{
         }
         ?>
 
-        </div>
     <?php
     }
 /*
@@ -77,9 +69,9 @@ Class Menu{
 
     public function menuInit(){
         $menu = Array(
-                    'Admin' => Array("Update Profile"=>"dispatch.php?ediituser=".$_SESSION["userId"], "Streams"=>"./", 
-                    "Classes"=>"choice=classes", "Teachers"=>"choice=teachers","Groups"=>"choice=groups", 
-                    "Subjects"=>"choice=subjects", "Students"=>"choice=students"),
+                    'Admin' => Array("Update Profile"=>"dispatch.php?edituser=".$_SESSION["userId"], "Parameters"=>"dispatch.php?choice=parameter", 
+                     "Teachers"=>"dispatch.php?choice=teacher","Groups"=>"dispatch.php?choice=group", 
+                     "Students"=>"dispatch.php?choice=student"),
                    
                     "Capture" => Array("marks"=>"dispatch.php?choice=marks", 
                     "Spreadsheet"=>"dispatch.php?choice=upload"),

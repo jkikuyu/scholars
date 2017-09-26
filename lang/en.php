@@ -11,10 +11,13 @@ $lang["actions"] = "Actions";
 $lang["ins_error"] = "Failed to save record";
 $lang["ins_success"] = "Record Successfully saved";
 
-$lang["subject_details"] = "Subject Details";
-$lang["subname"] = "Subject Name";
-$lang["subcode"] = "Subject Code";
-$lang["subdesc"] = "subject Description";
+$lang["param_details"] = "Parameter Details";
+$lang["shortname"] = "Short Name";
+$lang["longname"] = "Long Name";
+$lang["type"] = "Type";
+
+$lang["paramvalue"] = "Value";
+$lang["paramdesc"] = "Description";
 $lang["startdate"] = "Start Date";
 $lang["enddate"] = "End Date";
 

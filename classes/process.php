@@ -110,7 +110,7 @@
 			return array($spot_offdays_hist_re);
 		}
 		
-		public function get_edit_user($MYSQL){
+		public function get_edit_param($MYSQL){
 	
 			if((isset($_SESSION["editId"])) OR (isset($_GET["viewId"]))){
 				
@@ -119,48 +119,82 @@
 				}else if(isset($_SESSION["editId"])){
 					$editId = $_SESSION["editId"];
 				}
-				//$sql = 'SELECT '$_SESSION["table_name"]'.user_name, '.$_SESSION["table_name"]'.full_name AS Fullname, '.$_SESSION["table_name"]'.email, '.$_SESSION["table_name"]'.profile_image  WHERE '.$_SESSION["table_name"]'.userid = "$editId";
 
-				//$sql = 'SELECT '. $_SESSION["table_name"].'.user_name, '.$_SESSION["table_name"].'.full_name AS Fullname, '.$_SESSION["table_name"].'.email, '.$_SESSION["table_name"].'.profile_image  FROM '.$_SESSION["table_name"].' WHERE '.$_SESSION["table_name"].'.userid = '. $editId
-				$sql = "SELECT user_name, password, full_name , email, phone_number, profile_image, usertype FROM users WHERE userid =". $editId;
+                 $sql = "SELECT `parameter`.`paramid`,`parameter`.`shortname`,`parameter`.`newvalue`,
+                        `parameter`.`oldvalue`,`parameter`.`startdate`,`parameter`.`enddate`,
+                        `parameter`.`typeid`,`parameter`.`Description`,`parameter`.`longname`
+                            FROM `scholar`.`parameter` WHERE paramid =". $editId;
 
-				$pers_to_edit = $MYSQL->select($sql);
-
-				
-			}else{
-
-			}
-			if(isset($_GET["viewId"]) || isset($_SESSION["editId"])){
-				return  $pers_to_edit;
-			}else{
-
-				
-			}
-		}
-		public function get_edit_article($MYSQL){
-	
-			if((isset($_SESSION["editId"])) OR (isset($_GET["viewId"]))){
-				
-				if(isset($_GET["viewId"])){
-					$editId = $_GET["viewId"];
-				}else if(isset($_SESSION["editId"])){
-					$editId = $_SESSION["editId"];
-				}
-				$sql = "SELECT articleid, authorid, article_title, article_full_text, article_created_date, article_display, article_order FROM articles WHERE articleid =". $editId;
-
-				$pers_to_edit = $MYSQL->select($sql);
+				$param_to_edit = $MYSQL->select($sql);
 
 				
 			}else{
 
 			}
 			if(isset($_GET["viewId"]) || isset($_SESSION["editId"])){
-				return  $pers_to_edit;
+				return  $param_to_edit ;
 			}else{
 
 				
 			}
 		}
+        public function get_edit_student($MYSQL){
+    
+            if((isset($_SESSION["editId"])) OR (isset($_GET["viewId"]))){
+                
+                if(isset($_GET["viewId"])){
+                    $editId = $_GET["viewId"];
+                }else if(isset($_SESSION["editId"])){
+                    $editId = $_SESSION["editId"];
+                }
+
+                 $sql = "SELECT `parameter`.`paramid`,`parameter`.`shortname`,`parameter`.`newvalue`,
+                        `parameter`.`oldvalue`,`parameter`.`startdate`,`parameter`.`enddate`,
+                        `parameter`.`typeid`,`parameter`.`Description`,`parameter`.`longname`
+                            FROM `scholar`.`parameter` WHERE paramid =". $editId;
+
+                $param_to_edit = $MYSQL->select($sql);
+
+                
+            }else{
+
+            }
+            if(isset($_GET["viewId"]) || isset($_SESSION["editId"])){
+                return  $param_to_edit ;
+            }else{
+
+                
+            }
+        }
+
+        public function get_edit_teacher($MYSQL){
+    
+            if((isset($_SESSION["editId"])) OR (isset($_GET["viewId"]))){
+                
+                if(isset($_GET["viewId"])){
+                    $editId = $_GET["viewId"];
+                }else if(isset($_SESSION["editId"])){
+                    $editId = $_SESSION["editId"];
+                }
+
+                 $sql = "SELECT `parameter`.`paramid`,`parameter`.`shortname`,`parameter`.`newvalue`,
+                        `parameter`.`oldvalue`,`parameter`.`startdate`,`parameter`.`enddate`,
+                        `parameter`.`typeid`,`parameter`.`Description`,`parameter`.`longname`
+                            FROM `scholar`.`parameter` WHERE paramid =". $editId;
+
+                $param_to_edit = $MYSQL->select($sql);
+
+                
+            }else{
+
+            }
+            if(isset($_GET["viewId"]) || isset($_SESSION["editId"])){
+                return  $param_to_edit ;
+            }else{
+
+                
+            }
+        }
 
 		
 		public function update_settings($MYSQL){
@@ -311,75 +345,49 @@
 			}
 		}
 		
-		public function update_user_details($MYSQL){
+		public function update_param_details($MYSQL){
 				require "lang/en.php";
 			if((isset($_POST["save_details"])) OR (isset($_POST["update_details"]))){
-				$username = addslashes((isset($_POST["username"])? $_POST["username"]: ""));
-				$fullname = ucwords(strtolower(addslashes(isset($_POST["fullname"])?$_POST["fullname"]:"")));
-				$password = isset($_POST["password"])?$_POST["password"]:"";
-				$email = strtolower(addslashes($_POST["email"]));
-				$userid = $_SESSION["userId"];
-				$usertype = isset($_POST["usertype"])?$_POST["usertype"]:0;
+				$paramname = addslashes((isset($_POST["paramname"])? $_POST["paramname"]: ""));
+                $longname = addslashes((isset($_POST["longname"])? $_POST["longname"]: ""));
+                
+				$paramvalue = ucwords(strtolower(addslashes(isset($_POST["paramvalue"])?$_POST["paramvalue"]:"")));
+				$paramid = $_SESSION["paramid"];
+				$type = isset($_POST["type"])?$_POST["type"]:1;
 				$usertype = $usertype +0; // convert to integer
+				$startdate = date("Y-m-d H:i:s") ;
+				$description=(isset($_POST["description"])?$_POST["description"]:"");
+				$param_data  = ["shortname" => $paramname, "longname" => $longname,
+                "newvalue" => $paramvalue, "startdate" => $startdate];
+
+				if(isset($_POST["save_details"])){
 				
-				$phonenumber=(isset($_POST["phonenumber"])?$_POST["phonenumber"]:"");
-					$_SESSION["pno"] = $phonenumber;
-					$init_user_data  = ["full_name" => $fullname, "email" => $email, 	"phone_number" => $phonenumber];
-					$init_username = [ "user_name" => $username, "password"=>$password,"usertype"=>$usertype];
 
-					if(!empty($_FILES["userphoto"]["name"])){
-						$filenames = $_FILES["userphoto"]["name"];
-						$arr_filenames = explode(".", $filenames);
-						$ext = end($arr_filenames);
-						$allowedExts = array("image/png", "image/PNG", "image/jpg", "image/JPG", "image/jpeg", "image/JPEG");
-						$path = "images/people/";
-						$new_Userphoto_name = rand().$Username . '_' . $Fullname . '.';
-						$target = $path . $new_Userphoto_name . $ext;
-						if((!in_array($_FILES['Userphoto']['type'], $allowedExts)) AND (!empty($_FILES["Userphoto"]["type"]))){
-							header ("Location: user_form.php?wrong_ext");
-							exit();
-						}else {
-							if(move_uploaded_file($_FILES['Userphoto']['tmp_name'], $target)) {
-								$Userphoto = $new_Userphoto_name . $ext;
-							}else {
-								$Userphoto = "default.png";
-							}
-							$init_Userphoto = array("profile_image" => $Userphoto);
-						}
-					}else{
-							$init_Userphoto = array();
-					}
-				//	$user_data = array_merge($init_user_data,$init_username);
-					$user_data = array_merge_recursive($init_user_data, $init_Userphoto)	;
-					if(isset($_POST["save_details"])){
-							$user_data = array_merge($init_user_data,$init_username);
+						$insert_in_param = $MYSQL->insert($_SESSION["table_name"], $param_data);
 
-							$insert_in_user = $MYSQL->insert($_SESSION["table_name"], $user_data);
+					if($insert_in_param){
 
-						if($insert_in_user == TRUE){
-
-							if(isset($_SESSION["editId"])){ 
-								unset($_SESSION["editId"]); 
-							}
-							header("Location: ./"); exit();
-						} 
-						else{ 
-							print $lang["ins_success"];
-						} 
-					}
-					else { 
+						if(isset($_SESSION["editId"])){ unset($_SESSION["editId"]); }
+						header("Location: ./"); 
+                        print $lang["ins_success"];
+                        exit();
+                        
+					} 
+					else{ 
 						print $lang["ins_error"];
-					}
-					if(isset($_POST["update_details"])){
-						$where = ["userid"=>$userid];
-						
-						$update_user = $MYSQL->update($_SESSION["table_name"], $user_data, $where);
-							if($update_user == TRUE){
-								if(isset($_SESSION["editId"])){ unset($_SESSION["editId"]); }
-								header("Location: ./"); exit();
-							} else { print $lang["ins_success"]; }
+					} 
+				}
 
-					} else { print $lang["ins_error"]; }
+				if(isset($_POST["update_details"])){
+					$where = ["paramid"=>$paramid];
+					$enddate = date("Y-m-d H:i:s") ;
+					$update_param = $MYSQL->update($_SESSION["table_name"], $param_data, $where);
+						if($update_user == TRUE){
+							if(isset($_SESSION["editId"])){ unset($_SESSION["editId"]); }
+							header("Location: ./"); exit();
+						} else { print $lang["ins_success"]; }
+
+				} else { print $lang["ins_error"]; }
 					
 			}
 		}

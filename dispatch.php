@@ -9,11 +9,10 @@
 			$objLst->modal_fetch($pers_edit_row);
 		}
 	}
-	if(isset($_GET["editId"])){
+	if(isset($_GET["edituser"])){
 
-		if(is_numeric($_GET["editId"])){
-			$_SESSION["editId"] = $_GET["editId"];
-			$_SESSION["choice"] = 1; 
+		if(is_numeric($_GET["edituser"])){
+			$_SESSION["edituser"] = $_GET["edituser"];
 			header("location: user_form.php");
 			exit();
 		}
@@ -26,35 +25,15 @@
 		header("location: user_form.php");
 		exit();
 	}
-	if(isset($_GET["addarticle"])){
-		$_SESSION["choice"] = 2; 
-		if(isset($_SESSION["editId"])){
-			unset($_SESSION["editId"]);
-		}
-		header("location: user_form.php");
-		exit();
-	}
 
 	
 	if (isset($_GET["choice"])){
-		$choice = $_GET["choice"];
+		$choice= $_GET["choice"];
+        $_SESSION["choice"] = $choice;
 		$_SESSION["table_name"] = $choice;
-		if ($choice ==="users"){
-			$_SESSION["choice"] = 1;
-
-		}
-		elseif($choice ==="articles"){
-
-			$_SESSION["choice"] = 2;
-		}
-		else{
-			$_SESSION["table_name"] = "articles";
 
 
-			$_SESSION["choice"] = 3;
-		}
-
-		header("Location: ./");
+		header("location: user_form.php");
 		exit();
 	}
 

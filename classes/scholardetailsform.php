@@ -92,7 +92,7 @@ class ScholarDetailsForm{
 <?php
 
 }
-public function subject_registration_form($sub_to_edit){
+public function parameter_details_form($param_to_edit){
     require "lang/en.php";
 
 ?>
@@ -100,27 +100,48 @@ public function subject_registration_form($sub_to_edit){
 	<tr>
 		<td style = "width: 50%">
 		<fieldset style = "width: 50%;">
-					<legend><?php echo $lang["subject_details"]; ?></legend>
+					<legend><?php echo $lang["param_details"]; ?></legend>
 				<table border = "0" align = "center" style = "width: 100%;" >
 					<form class = "reg-form" action = "" method = "POST" name="reg-form">
 					    <legend> ?php echo $lang["sub_detail"]</legend>
+					    <tr>
+					         <td>
+                                 <select  name="type" <?php if(isset($_SESSION['editId'])){ echo " disabled"; }?> >
+                                    <?php
+                                    $cnt = 1; 
+                                    foreach ( $$param_to_edit as $keys => $values){ 
+                                        
+                                       echo "<option value='". $cnt. "'".  ($values == 1)?" selected >":"".$keys. "</option>";
+                                        $cnt++;
+                                    }
+                                    ?>
+
+
+                            </td>
+                        </tr>
+
 						<tr>
 							<td style = "width: 100%;">
-								<input type = "text" name = "subject" placeholder = "<?php echo $lang["subname"];?>" 
-								<?php if(isset($_SESSION['editId'])){ ?> value = "<?php echo $sub_to_edit["subname"]; ?>" 
+								<input type = "text" name = "paramname" placeholder = "<?php echo $lang["shortname"];?>" 
+								<?php if(isset($_SESSION['editId'])){ ?> value = "<?php echo $param_to_edit["shortname"]; ?>" 
 								disabled <?php } ?> autofocus required />
 							</td>
                             <td style = "width: 100%;">
-                                <input type = "text" name = "subcode" placeholder = "<?php echo $lang["subcode"];?>" 
-                                <?php if(isset($_SESSION['editId'])){ ?> value = "<?php echo $sub_to_edit["subcode"]; ?>" 
+                                <input type = "text" name = "paramvalue" placeholder = "<?php echo $lang["paramvalue"];?>" 
+                                <?php if(isset($_SESSION['editId'])){ ?> value = "<?php echo $param_to_edit["newvalue"]; ?>" 
                                 disabled <?php } ?> autofocus required />
                             </td>
 
 						</tr>
+                        <tr>
+                            <td style = "width: 100%;">
+                            <textarea name = "longname" placeholder = "<?php echo $lang["longname"];?>"<?php if(isset($_SESSION['editId'])){ ?> value = "<?php echo $sub_to_edit["longname"]; ?>"<?php } ?> required />
+                            </td>
+                        </tr>
 
 						<tr>
 							<td style = "width: 100%;">
-							<textarea name = "subject_desc" placeholder = "<?php echo $lang["subdesc"];?>"<?php if(isset($_SESSION['editId'])){ ?> value = "<?php echo $sub_to_edit["subdesc"]; ?>"<?php } ?> required />
+							<textarea name = "param_desc" placeholder = "<?php echo $lang["paramdesc"];?>"<?php if(isset($_SESSION['editId'])){ ?> value = "<?php echo $sub_to_edit["description"]; ?>"<?php } ?> required />
 							</td>
 						</tr>
 						<tr>
@@ -136,7 +157,7 @@ public function subject_registration_form($sub_to_edit){
 							<td>
                             	<?php if(isset($_SESSION['editId'])){ ?>
                             		<input  type = "submit" name = "update_details" value = "<?php echo $lang["updatedetailsbutton"]; ?>" />
-                            		<input type = "hidden" name = "Username" value = "<?php echo $sub_to_edit["user_name"]; ?>" />
+                            		<input type = "hidden" name = "Username" value = "<?php echo $param_to_edit["user_name"]; ?>" />
                             	<?php }else{ ?>
                             		<input  type = "submit" name = "save_details" value = "<?php echo $lang["savedetailsbutton"]; ?>" />
                             	<?php } ?>

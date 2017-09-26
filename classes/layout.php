@@ -8,14 +8,20 @@
 					<head>
 						<meta charset="UTF-8">
 							<title><?php echo $lang["title"]; ?></title>
-							<link rel = "stylesheet" href = "styles/style.css" />
+
+<!--
 							<link type = "text/css" rel = "stylesheet" href = "styles/bootstrap.min.css" />
+-->
+
+
+							
 
 							<link type = "text/css" rel = "stylesheet" href = "js/nyroModal/styles/nyroModal.css" />
 							<script type = "text/javascript" src = "js/nyroModal/js/jquery-1.11.1.min.js" ></script>
 							<script type = "text/javascript" src = "js/nyroModal/js/jquery.nyroModal.custom.js" ></script>
 							<script type = "text/javascript" src = "js/ckeditor/ckeditor.js" ></script>
 							<script type = "text/javascript" src = "js/article.js" ></script>
+							<link rel = "stylesheet" href = "styles/style.css" />
 					</head>
 			<?php
 		}
@@ -24,8 +30,7 @@
 			?>
 	<body>
 
-		  <div class="table-responsive">
-	   <table class="table table bordered" align = "center" style = "width: 80%">
+
 			<?php
 		}
 		public function settings_display($all_week_days, $arr_can_apply_on, $arr_class_days, $will_take_effect, $spot_Monday, $spot_offdays_rows, $MYSQL){
@@ -156,7 +161,11 @@
 			switch ($usertype) {
 				case 3:
 				 $dispatch[0] = "editId=". $_SESSION["userId"];
-				 $dispatch[1] = "choice=articles";
+				 $dispatch[1] = "choice=classes";
+                 $dispatch[2] = "choice=teachers";
+                 $dispatch[3] = "choice=subjects";
+                 $dispatch[4] = "choice=subjects";
+                 
 				 $dispatch[2] = "logout=true";
 				 break;
 				 default:
@@ -181,7 +190,7 @@
 			}
 
 			?>
-        <div class = "container">
+        <div class = "container1">
             <p align = "right">
                 <?php if(isset($_SESSION["choice"])){
                     if($_SESSION["choice"] ==1 || $_SESSION["choice"]==2){
@@ -212,41 +221,43 @@
                 if ($usertype ==3){
             ?>
                 
+<!--
                 [<a href = "dispatch.php?<?php echo $dispatch[0]?>">Update Profile</a>]
                 [<a href = "dispatch.php?<?php echo $dispatch[1]?>">View Articles </a>]
                 [<a href = "dispatch.php?<?php echo $dispatch[2]?>">Log out </a>]
                 current user <?php echo ": ". ucwords($_SESSION["username"])?>
+-->
             <?php
                 }
                 else{
 
 
             ?>
-
+<!--
                 [<a href = "dispatch.php?<?php echo $dispatch[0]?>">Update Profile</a>]
                 [<a href = "dispatch.php?<?php echo $dispatch[1]?>">Manage Users </a>]
                 [<a href = "dispatch.php?<?php echo $dispatch[2]?>">View Articles </a>]
                 [<a href = "dispatch.php?<?php echo $dispatch[3]?>">Log out </a>]
                 current user <?php echo ": ". ucwords($_SESSION["username"])?>
             </p>
-<!--            <p align = "right">
+            <p align = "right">
                 [<a href = "dispatch.php?adduser">Add New <?php print $lang["group_name"]; ?> User </a>]
             </p>
 -->         
 
         <?php }?> 
-
+<!--
             <p align = "right">
                 [<a href = "topdf.php" target = "_BLANK">Export Pdf</a>] | [<a href = "textfile.php" target = "_BLANK">export to Text File</a>] | [<a href = "excell.php">export to Excel</a>]
             </p>
-<!--            <p align = "right">
+            <p align = "right">
                 [<a href = "offdays.php">Apply for a day off</a>]
             </p>
- -->            
+          
             <p align = "right">
                 [<a href = "dispatch.php?user_view=grid_view">Grid View</a>] | [<a href = "dispatch.php?user_view=list_view" >List View</a>]
             </p>
-
+ -->  
             <?php
         }
 
