@@ -103,17 +103,21 @@ public function parameter_details_form($param_to_edit){
 					<legend><?php echo $lang["param_details"]; ?></legend>
 				<table border = "0" align = "center" style = "width: 100%;" >
 					<form class = "reg-form" action = "" method = "POST" name="reg-form">
-					    <legend> ?php echo $lang["sub_detail"]</legend>
 					    <tr>
 					         <td>
                                  <select  name="type" <?php if(isset($_SESSION['editId'])){ echo " disabled"; }?> >
                                     <?php
                                     $cnt = 1; 
-                                    foreach ( $$param_to_edit as $keys => $values){ 
+                                    if(is_array($_SESSION["types"])){
                                         
-                                       echo "<option value='". $cnt. "'".  ($values == 1)?" selected >":"".$keys. "</option>";
-                                        $cnt++;
+                                        foreach ( $_SESSION["types"] as $keys => $values){
+                                           echo "<option value='". $cnt . "'>" .$values["typename"]. "</option>";
+                                            $cnt++;
+                                        }
+                                    }else{
+                                        print_r($_SESSION["types"]);
                                     }
+                                        
                                     ?>
 
 
@@ -135,21 +139,22 @@ public function parameter_details_form($param_to_edit){
 						</tr>
                         <tr>
                             <td style = "width: 100%;">
-                            <textarea name = "longname" placeholder = "<?php echo $lang["longname"];?>"<?php if(isset($_SESSION['editId'])){ ?> value = "<?php echo $sub_to_edit["longname"]; ?>"<?php } ?> required />
+                            <input name = "longname" placeholder = "<?php echo $lang["longname"];?>"<?php if(isset($_SESSION['editId'])){ ?> value = "<?php echo $param_to_edit["longname"]; ?>"<?php } ?> required />
                             </td>
                         </tr>
 
 						<tr>
 							<td style = "width: 100%;">
-							<textarea name = "param_desc" placeholder = "<?php echo $lang["paramdesc"];?>"<?php if(isset($_SESSION['editId'])){ ?> value = "<?php echo $sub_to_edit["description"]; ?>"<?php } ?> required />
+							<textarea name = "param_desc" style="width: 200px;" placeholder = "<?php echo $lang["paramdesc"];?>"
+							    <?php if(isset($_SESSION['editId'])){ ?> value = "<?php echo $param_to_edit["description"]; ?>"<?php } ?> required></textarea>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								<input type = "date" name = "startdate" placeholder = "<?php echo $lang["startdate"];?>" <?php if(isset($_SESSION['editId'])){ ?> value = "<?php echo $sub_to_edit["startdate"]; ?>"<?php } ?> required />
+								<input type = "date" name = "startdate" placeholder = "<?php echo $lang["startdate"];?>" <?php if(isset($_SESSION['editId'])){ ?> value = "<?php echo $param_to_edit["startdate"]; ?>"<?php } ?> required />
 							</td>
                             <td>
-                                <input  type = "date" name ="enddate " placeholder = "<?php echo $lang["enddate"];?>" <?php if(isset($_SESSION['editId'])){ ?> value = "<?php echo $sub_to_edit["enddate"];?>"<?php } ?> required />
+                                <input  type = "date" name ="enddate " placeholder = "<?php echo $lang["enddate"];?>" <?php if(isset($_SESSION['editId'])){ ?> value = "<?php echo $param_to_edit["enddate"];?>"<?php } ?> required />
                             </td>
 
 						</tr>

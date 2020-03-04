@@ -41,10 +41,10 @@ $lang["phonenumber"] = "Phone Number";
 $lang["profile_image"]="Profile Image";
 $lang["returnbutton"] = "Return";
 $lang["updatedetailsbutton"] = "Update Record";
-$lang["savedetailsbutton"] = !isset($_SESSION["usertype"])?"":($_SESSION["usertype"]==3?"Save Article":"Save Details");
+$lang["savedetailsbutton"] = !isset($_SESSION["usertype"])?"":($_SESSION["usertype"]==3?"Save Article":"Save");
 
 $lang["movetoadmin"] = "Move this area to an administrator's page";
-$lang["copyright"] = "Copyright &copy; " . date("Y") . " - BBIT3104";
+$lang["copyright"] = "Copyright &copy; " . date("Y") . " - Alcron";
 $lang["table_name"] = $_SESSION["table_name"];
 $lang["group_name"] = ucwords(strtolower(str_replace( '_' , ' ' , $lang["table_name"] )));
 $lang["table_title"] = $lang["group_name"] . " Listing";

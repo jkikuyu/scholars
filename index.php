@@ -1,7 +1,8 @@
 <?php
 	session_start();
 	require_once "classes/classesAutoload.php";
-
+	echo "hello world";
+die();
 	if (isset($_POST["username"])){	
 		$success= $objLogin->checkValidUser($MYSQL);
         

@@ -13,7 +13,9 @@ Class Menu{
     function MakeMenu($items, $level = 0) {
  
         foreach ($items as $item => $subitems) {
+
             if (!is_numeric($item)) {
+                  print_r($item);
                 if (is_array($subitems)){
                     
                     if($this->isAssoc($subitems)){
@@ -25,6 +27,7 @@ Class Menu{
                     <div class="dropdown-content">
                 <?php  
                         foreach($subitems as $keys=>$values){
+
                              echo "<a href='".$values ."'>".$keys. "</a>";   
                         }
                     }

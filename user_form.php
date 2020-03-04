@@ -4,12 +4,13 @@
 	$choice = isset($_SESSION["choice"])?$_SESSION["choice"]:1;
     $objLayout->head();
     $objLayout->body_open();
-    
+    $objMenu->menuInit();
     switch ($choice){
         case "parameter":
             $param_to_edit = $objProc->get_edit_param($MYSQL);
-            $objProc->update_param_details($MYSQL);
-            $objForm->paramater_form($article_to_edit);
+            $_SESSION["types"] = $objProc->get_type($MYSQL);
+            $objProc->save_param_details($MYSQL);
+            $objForm->parameter_details_form($param_to_edit);
             break;
         case "student":
             $pers_to_edit = $objProc->get_edit_student($MYSQL);
