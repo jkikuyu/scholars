@@ -67,7 +67,6 @@ ini_set('display_errors', true);
          if ($result === '1'){
 
             $curl = curl_init();
-                      echo "here";
 
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
             curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
@@ -81,8 +80,10 @@ ini_set('display_errors', true);
             curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
 
             $resp = curl_exec($curl);
+                                   echo "here";
+
             curl_close($curl);
-            if(strlen($data>0)){
+            if(strlen($resp)>0){
                 print_r($resp);
             }
          } 
