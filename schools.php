@@ -31,7 +31,7 @@ tr:nth-child(even) {
  <?php
 error_reporting(E_ALL);
 ini_set('display_errors', true);
-ini_set('display_startup_errors',true);
+//ini_set('display_startup_errors',true);
   $data = '{
     "schoolRef": "THS2334-2020",
     "schoolID": "123456",
@@ -57,36 +57,40 @@ ini_set('display_startup_errors',true);
     ]
 }';
     $ajson = json_decode($data, true);   
-    $result = $_POST['pass']; 
-    $url="http://localhost/api/v1/fas/store";
-    $headers = array('Content-Type: application/json');
-     try{
-     if ($result === '1'){
+    if (isset($_POST['pass'])){
+        $result = $_POST['pass']; 
 
-        $curl = curl_init();
-                  echo "here";
+    
+        $url="http://localhost/api/v1/fas/store";
+        $headers = array('Content-Type: application/json');
+         try{
+         if ($result === '1'){
 
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
-        curl_setopt($curl, CURLOPT_URL, $url);
+            $curl = curl_init();
+                      echo "here";
 
-        curl_setopt($curl, CURLOPT_TIMEOUT, 10);
-        curl_setopt($curl, CURLOPT_POST, 1);
-        curl_setopt($curl, CURLOPT_HTTPHEADERS, $headers);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+            curl_setopt($curl, CURLOPT_URL, $url);
 
-        $resp = curl_exec($curl);
-        curl_close($curl);
-        if(strlen($data>0)){
-            print_r($resp);
-        }
-     } 
-     }
-     catch(Exception $e){
-         print_r(e.getMessage());
-     }
+            curl_setopt($curl, CURLOPT_TIMEOUT, 10);
+            curl_setopt($curl, CURLOPT_POST, 1);
+            curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+
+            $resp = curl_exec($curl);
+            curl_close($curl);
+            if(strlen($data>0)){
+                print_r($resp);
+            }
+         } 
+         }
+         catch(Exception $e){
+             print_r(e.getMessage());
+         }
+    }
 ?>
   <ul>
     <li>School Id: <?php echo $ajson['schoolID'];?></li>
