@@ -33,35 +33,34 @@ error_reporting(E_ALL);
 ini_set('display_errors', true);
 //ini_set('display_startup_errors',true);
   $data = '{
-    "schoolRef": "THS2334-2020",
-    "schoolID": "123456",
-    "period": "2019",
-    "returnType": "0",
-    "students": [
-        {
-            "index": "9162003002",
-            "nemis": "BPCS631",
-            "name": "BRYSON OIRERE",
-            "absent": "1",
-            "DoB": "22/10/2003",
-            "bcert_number": "9302576"
-        },
-        {
-            "index": "5652005003",
-            "nemis": "BPCS120",
-            "name": "JOSEPH THAIRU",
-            "absent": "7",
-            "DoB": "01/08/2005",
-            "bcert_number": "9671063"
-        }
-    ]
+	"refNo":"THS2335-2020",
+	"schoolID": "123456",
+	"period": "2020",
+	"returnType": "0",
+	"students": [{
+			"index": "20401007099",
+			"nemis": "",
+			"name": "John Doe",
+			"absent": "1.00",
+			"DoB": "01/01/2011",
+			"bcert_number": "xxxxx"
+		},
+		{
+			"index": "20401007090",
+			"nemis": "XXX/00001/2019",
+			"name": "Peter Doe",
+			"absent": "1.00",
+			"DoB": "01/02/2011",
+			"bcert_number": "yyyyy"
+		}
+	]
 }';
     $ajson = json_decode($data, true);   
     if (isset($_POST['pass'])){
         $result = $_POST['pass']; 
 
     
-        $url="http://localhost/api/v1/fas/store";
+        $url="http://localhost/edco/public/api/v1/fas/store";
         $headers = array('Content-Type: application/json');
          try{
          if ($result === '1'){

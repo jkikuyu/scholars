@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html >
+<head>
+    
+<meta charset="UTF-8">
+
+<script>
+function myFunction() {
+  //var myHeaders = new Headers();
+  //myHeaders.append("Content-Type", "application/json");
+
+  var raw = JSON.stringify({"schoolID":123456,"period":"2020"});
+
+  var requestOptions = {
+     method: 'POST',
+     mode: 'cors', // no-cors, *cors, same-origin
+     cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+     credentials: 'same-origin', // include, *same-origin, omit
+     headers: {'Content-Type': 'application/json',},
+     body: raw,
+     redirect: 'follow'
+   };
+// alert(requestOptions);
+ 
+   //const response = fetch("https://nefas.herokuapp.com/public/api/v1/fas/approvedList"
+    const response = fetch("https://nefas.herokuapp.com/public/api/v1/fas/approvedList",  {
+     method: 'POST',
+     mode: 'no-cors', // no-cors, *cors, same-origin
+     cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+     credentials: 'same-origin', // include, *same-origin, omit
+     headers: {'Content-Type': 'application/json',},
+     body: raw,
+     redirect: 'follow'
+   })
+   .then((response) => response.text())
+   .then((result) => console.log(result))
+   .catch((error) => console.log('error IS BECAUSE: ', error));
+ 
+   //alert(response);
+}
+</script>
+</head>
+<body onload="myFunction()">
+</body>
+</html>
